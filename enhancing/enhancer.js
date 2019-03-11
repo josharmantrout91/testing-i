@@ -28,12 +28,28 @@ function succeed(item) {
 // If the item's enhancement level is greater than 16, the enhancement level decreases by 1 (17 goes down to 16, 18 goes down to 17).
 
 function fail(item) {
-  const failure = Object.assign({}, item);
-  let d = failure.durability;
-  let e = failure.enhancement;
-
-  return { ...item };
+  let d = item.durability;
+  let e = item.enhancement;
+  if (e <= 14) {
+    return {
+      ...item,
+      durability: d - 5
+    };
+  } else if (e === 15) {
+    return {
+      ...item,
+      durability: d - 10
+    };
+  } else if (e >= 16) {
+    return {
+      ...item,
+      durability: d - 10,
+      enhancement: e - 1
+    };
+  }
 }
+
+// a repair(item) method that accepts an item object and returns a new item with the durability restored to 100.
 
 function repair(item) {
   const repairedItem = {
